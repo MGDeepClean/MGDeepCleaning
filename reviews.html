@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Reviews | MG Deep Cleaning Tirupati</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="mg-style.css">
+</head>
+
+<body class="">
+    <!-- CUSTOM CURSOR -->
+    <div id="custom-cursor"></div>
+    <div id="cursor-ring"></div>
+    <canvas id="spray-canvas"></canvas>
+    <canvas id="dust-canvas"></canvas>
+
+    <!-- SCROLL PROGRESS FOAM BAR -->
+    <div id="scroll-foam"></div>
+
+    <!-- SQUEEGEE WIPE OVERLAY -->
+    <div id="wipe-overlay">
+        <div class="wipe-panel" id="wipe-panel"></div>
+    </div>
+    <div id="squeegee-bar"></div>
+    <div id="squeegee-handle"></div>
+
+    <!-- MOBILE MENU -->
+    <div class="mobile-menu" id="mobile-menu">
+        <button class="mobile-close" id="mobile-close" aria-label="Close menu"><i class="fas fa-times"></i></button>
+        <a href="blackbox.html#services">Services</a>
+        <a href="blackbox.html#about">About</a>
+        <a href="blackbox.html#testimonials">Reviews</a>
+        <a href="blackbox.html#contact">Contact</a>
+        <a href="tel:+917337289189" class="nav-phone" style="text-align:center;display:block;">
+            <i class="fas fa-phone-alt"></i> +91 7337289189
+        </a>
+    </div>
+    <!-- NAVBAR -->
+    <nav id="navbar" class="scrolled">
+        <a href="blackbox.html" class="nav-logo">
+            <div class="nav-logo-mark">
+                MG
+                <div class="nav-logo-roof"></div>
+            </div>
+            <div>
+                <div class="nav-brand-text">MG <span>Deep Clean</span></div>
+                <div style="font-size:0.7rem;color:var(--text-muted);letter-spacing:1px;">TIRUPATI · EST. 2018</div>
+            </div>
+        </a>
+        <div class="nav-links">
+            <a href="blackbox.html">Home</a>
+            <a href="blackbox.html#services">Services</a>
+            <a href="blackbox.html#before-after">Gallery</a>
+            <a href="blackbox.html#contact">Contact</a>
+        </div>
+        <div style="display: flex; align-items: center; gap: 15px;">
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle Light/Dark Theme">
+                <i class="fas fa-sun" id="theme-icon"></i>
+            </button>
+            <a href="tel:+917337289189" class="nav-phone">
+                <i class="fas fa-phone-alt" style="margin-right:6px;"></i> +91 7337289189
+            </a>
+            <button class="hamburger" id="hamburger" aria-label="Menu" style="margin-left: 5px;">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- DUMMY ELEMENTS FOR GLOBAL SCRIPT COMPATIBILITY -->
+    <div id="hero" style="display:none;"></div>
+    <div id="typewriter-text" style="display:none;"></div>
+    <canvas id="bubble-canvas" style="display:none;"></canvas>
+
+
+    <!-- CONTENT -->
+    <section class="section" style="padding-top: 140px; min-height: 100vh;">
+        <div class="section-header">
+            <div class="section-label">Wall of Love</div>
+            <h1 class="section-title font-oswald text-5xl font-bold mb-6">Customer <span
+                    class="title-accent">Reviews</span></h1>
+            <p class="section-sub text-gray-400 max-w-2xl mx-auto">See why hundreds of families and businesses in
+                Tirupati trust MG Deep Cleaning for their spaces.</p>
+        </div>
+
+        <div id="reviews-loader" class="text-center py-10">
+            <div class="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-orange"></div>
+            <p class="mt-4 text-gray-500">Fetching latest reviews...</p>
+        </div>
+
+        <div id="reviews-grid"
+            class="max-w-7xl mx-auto px-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 opacity-0 transition-opacity duration-500">
+            <!-- Dynamic reviews will be injected here -->
+        </div>
+
+        <!-- PAGINATION CONTROLS -->
+        <div id="pagination-controls"
+            class="flex justify-center items-center gap-4 mt-16 opacity-0 transition-opacity duration-500">
+            <button id="prev-page" class="pagination-btn" disabled><i class="fas fa-chevron-left"></i> Previous</button>
+            <div id="page-numbers" class="flex gap-2"></div>
+            <button id="next-page" class="pagination-btn">Next <i class="fas fa-chevron-right"></i></button>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-top">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <div class="nav-logo-mark">MG<div class="nav-logo-roof"></div>
+                    </div>
+                    <div>
+                        <div class="nav-brand-text">MG <span style="color:var(--orange)">Deep Clean</span></div>
+                        <div style="font-size:0.7rem;color:var(--text-muted);letter-spacing:1px;">TIRUPATI · EST. 2018
+                        </div>
+                    </div>
+                </div>
+                <p class="footer-tagline">Bringing the sparkle back to homes and businesses across Tirupati.
+                    Professional, reliable, and spotlessly thorough — every single time.</p>
+                <div class="footer-social">
+                    <a href="https://wa.me/917337289189?text=Hi%2C%20I'm%20interested%20in%20your%20Deep%20Cleaning%20services!"
+                        class="social-icon"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-mobile-row">
+                <div>
+                    <div class="footer-col-title">Services</div>
+                    <div class="footer-links">
+                        <a href="#services">Washroom Cleaning</a>
+                        <a href="#services">Sofa Foam Wash</a>
+                        <a href="#services">Carpet Cleaning</a>
+                        <a href="#services">House Deep Clean</a>
+                        <a href="#services">Chimney Cleaning</a>
+                    </div>
+                </div>
+                <div>
+                    <div class="footer-col-title">More Services</div>
+                    <div class="footer-links">
+                        <a href="#services">Water Tank</a>
+                        <a href="#services">Pool Cleaning</a>
+                        <a href="#services">Beds & Mattress</a>
+                        <a href="#services">Glass & Windows</a>
+                        <a href="#services">Market Cleaning</a>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="footer-col-title">Contact Us</div>
+                <div class="footer-contact-item">
+                    <i class="fas fa-user"></i>
+                    <span>B. Ganesh — Owner</span>
+                </div>
+                <div class="footer-contact-item">
+                    <i class="fas fa-phone-alt"></i>
+                    <span><a href="tel:+917337289189" style="color:var(--orange);">+91 7337289189</a></span>
+                </div>
+                <div class="footer-contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>#13-30-S-278, PK Layout, Tirupati (A.P) – 517 501</span>
+                </div>
+                <div class="footer-contact-item">
+                    <i class="fas fa-clock"></i>
+                    <span>Mon–Sat: 7AM–8PM<br>Sun: 8AM–6PM</span>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-copy">© 2025 <span>MG Deep Cleaning Services</span>. All rights reserved. Tirupati, A.P.
+            </div>
+            <div class="footer-copy">Made with <span>❤️</span> for MG Deep Cleaning Tirupati</div>
+        </div>
+    </footer>
+
+    <!-- FLOATING WHATSAPP -->
+    <a href="https://wa.me/917337289189?text=Hi%2C%20I'm%20interested%20in%20your%20Deep%20Cleaning%20services!"
+        class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- SHARED SCRIPTS -->
+    <script src="script.js"></script>
+    <!-- DYNAMIC REVIEWS SCRIPT -->
+    <script>
+        let allReviews = [];
+        let currentPage = 1;
+        const itemsPerPage = 12;
+
+        async function fetchReviews() {
+            const grid = document.getElementById('reviews-grid');
+            const pagination = document.getElementById('pagination-controls');
+            const loader = document.getElementById('reviews-loader');
+
+            try {
+                const response = await fetch('reviews.json');
+                allReviews = await response.json();
+
+                renderPage(1);
+
+                // Show grid and pagination
+                loader.style.display = 'none';
+                grid.classList.remove('opacity-0');
+                pagination.classList.remove('opacity-0');
+
+            } catch (error) {
+                console.error('Error fetching reviews:', error);
+                loader.innerHTML = '<p class="text-red-500">Failed to load reviews. Please try again later.</p>';
+            }
+        }
+
+        function renderPage(page) {
+            currentPage = page;
+            const grid = document.getElementById('reviews-grid');
+            const startIndex = (page - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const pageReviews = allReviews.slice(startIndex, endIndex);
+
+            grid.innerHTML = pageReviews.map(review => `
+                <div class="bg-charcoal-light border border-white/5 rounded-2xl overflow-hidden shadow-2xl hover:border-orange/30 transition-all duration-300 group">
+                    <div class="relative overflow-hidden h-[400px]">
+                        <img src="${review.url}" alt="${review.alt}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                            <span class="bg-orange px-3 py-1 rounded-full text-xs font-bold text-white uppercase tracking-widest">${review.category}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            updatePagination();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function updatePagination() {
+            const totalPages = Math.ceil(allReviews.length / itemsPerPage);
+            const prevBtn = document.getElementById('prev-page');
+            const nextBtn = document.getElementById('next-page');
+            const pageNumbers = document.getElementById('page-numbers');
+
+            prevBtn.disabled = currentPage === 1;
+            nextBtn.disabled = currentPage === totalPages;
+
+            pageNumbers.innerHTML = '';
+            for (let i = 1; i <= totalPages; i++) {
+                const btn = document.createElement('button');
+                btn.innerText = i;
+                btn.className = `page-num-btn ${i === currentPage ? 'active' : ''}`;
+                btn.onclick = () => renderPage(i);
+                pageNumbers.appendChild(btn);
+            }
+        }
+
+        document.getElementById('prev-page').onclick = () => {
+            if (currentPage > 1) renderPage(currentPage - 1);
+        };
+
+        document.getElementById('next-page').onclick = () => {
+            const totalPages = Math.ceil(allReviews.length / itemsPerPage);
+            if (currentPage < totalPages) renderPage(currentPage + 1);
+        };
+
+        window.onload = fetchReviews;
+    </script>
+</body>
+
+</html>

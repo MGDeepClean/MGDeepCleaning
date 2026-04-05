@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MG Deep Cleaning Services | Tirupati, Andhra Pradesh</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- TAILWIND CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        charcoal: { DEFAULT: '#1A1A1A', light: '#242424', mid: '#2e2e2e' },
+                        orange: { DEFAULT: '#F07C1A', light: '#ff9a3c', glow: 'rgba(240, 124, 26, 0.3)' },
+                        blue: { DEFAULT: '#2AACDC', light: '#4fc3f0', glow: 'rgba(42, 172, 220, 0.3)' }
+                    },
+                    fontFamily: { oswald: ['Oswald', 'sans-serif'], dmsans: ['DM Sans', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    <!-- EXTERNAL STYLESHEET (Complex Animations & UI) -->
+    <link rel="stylesheet" href="mg-style.css">
+</head>
+
+<body>
+
+    <!-- CUSTOM CURSOR -->
+    <div id="custom-cursor"></div>
+    <div id="cursor-ring"></div>
+    <canvas id="spray-canvas"></canvas>
+    <canvas id="dust-canvas"></canvas>
+
+    <!-- SCROLL PROGRESS FOAM BAR -->
+    <div id="scroll-foam"></div>
+
+    <!-- SQUEEGEE WIPE OVERLAY -->
+    <div id="wipe-overlay">
+        <div class="wipe-panel" id="wipe-panel"></div>
+    </div>
+    <div id="squeegee-bar"></div>
+    <div id="squeegee-handle"></div>
+
+    <!-- MOBILE MENU -->
+    <div class="mobile-menu" id="mobile-menu">
+        <button class="mobile-close" id="mobile-close" aria-label="Close menu"><i class="fas fa-times"></i></button>
+        <a href="#services">Services</a>
+        <a href="#about">About</a>
+        <a href="#testimonials">Reviews</a>
+        <a href="#contact">Contact</a>
+        <a href="tel:+917337289189" class="nav-phone" style="text-align:center;display:block;">
+            <i class="fas fa-phone-alt"></i> +91 7337289189
+        </a>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav id="navbar">
+        <a href="#" class="nav-logo">
+            <div class="nav-logo-mark">
+                MG
+                <div class="nav-logo-roof"></div>
+            </div>
+            <div>
+                <div class="nav-brand-text">MG <span>Deep Clean</span></div>
+                <div style="font-size:0.7rem;color:var(--text-muted);letter-spacing:1px;">TIRUPATI · EST. 2018</div>
+            </div>
+        </a>
+        <div class="nav-links">
+            <a href="#services">Services</a>
+            <a href="#before-after">Gallery</a>
+            <a href="#testimonials">Reviews</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <div style="display: flex; align-items: center; gap: 15px;">
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle Light/Dark Theme">
+                <i class="fas fa-sun" id="theme-icon"></i>
+            </button>
+            <a href="tel:+917337289189" class="nav-phone">
+                <i class="fas fa-phone-alt" style="margin-right:6px;"></i> +91 7337289189
+            </a>
+            <button class="hamburger" id="hamburger" aria-label="Menu" style="margin-left: 5px;">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section id="hero">
+        <canvas id="bubble-canvas"></canvas>
+        <div class="hero-content">
+            <div class="hero-text">
+                <div class="hero-badge">
+                    <i class="fas fa-star"></i>
+                    Tirupati's #1 Cleaning Service
+                </div>
+                <h1 class="hero-title">
+                    <span class="highlight">Deep Cleaning</span><br>
+                    Services in <span class="blue-hl">Tirupati</span>
+                </h1>
+                <p class="hero-typewriter" id="typewriter">
+                    <span id="typewriter-text"></span><span class="typewriter-cursor"></span>
+                </p>
+                <div class="hero-btns">
+                    <a href="tel:+917337289189" class="btn-primary" id="btn-book">
+                        🧹 Book a Cleaning
+                    </a>
+                    <a href="tel:+917337289189" class="btn-secondary" id="btn-quote">
+                        Get Free Quote
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number" data-target="500" data-suffix="+">0</div>
+                        <div class="stat-label">Happy Clients</div>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-target="10" data-suffix="+">0</div>
+                        <div class="stat-label">Services Offered</div>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-target="100" data-suffix="%">0</div>
+                        <div class="stat-label">Satisfaction Rate</div>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-target="6" data-suffix="+">0</div>
+                        <div class="stat-label">Years Experience</div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-img-wrap">
+                    <div class="hero-img-placeholder">
+                        <span class="hero-cleaning-icon">🏠</span>
+                    </div>
+                    <div class="hero-badge-float">
+                        <p>Owner & Lead Technician</p>
+                        <strong>B. Ganesh</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" class="section">
+        <div class="section-header">
+            <div class="section-label">What We Do</div>
+            <h2 class="section-title font-oswald text-4xl md:text-5xl font-bold leading-tight mb-4">Complete <span
+                    class="title-accent">Cleaning</span> Solutions</h2>
+            <p class="section-sub text-base text-gray-400 max-w-2xl mx-auto leading-relaxed">From residential
+                deep-cleans to commercial maintenance — we handle every surface,
+                every space, every time.</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card modal-trigger" data-delay="0">
+                <span class="service-icon spray" style="color:#2AACDC">🚿</span>
+                <div class="service-tag">Sanitation</div>
+                <div class="service-name">Washroom Cleaning</div>
+                <div class="service-desc">Complete disinfection of tiles, toilets, basins, and fixtures. Eliminating
+                    bacteria, mold, and foul odors for a hygienic restroom.</div>
+                <div class="service-arrow"><i class="fas fa-arrow-right"></i></div>
+            </div>
+            <div class="service-card modal-trigger" data-delay="50">
+                <span class="service-icon spray" style="color:#F07C1A">🛋️</span>
+                <div class="service-tag">Upholstery</div>
+                <div class="service-name">Sofa Foam Wash</div>
+                <div class="service-desc">Hot-foam extraction cleaning that lifts deep-set stains, allergens, and dust
+                    mites from all fabric and leather sofa types.</div>
+                <div class="service-arrow"><i class="fas fa-arrow-right"></i></div>
+            </div>
+            <div class="service-card modal-trigger" data-delay="100">
+                <span class="service-icon mop" style="color:#9b59b6">🪣</span>
+                <div class="service-tag">Floor Care</div>
+                <div class="service-name">Carpet Cleaning</div>
+                <div class="service-desc">Professional steam and dry-cleaning methods for all carpet types. Restore
+                    original color and freshness with our powerful extraction machines.</div>
+                <div class="service-arrow"><i class="fas fa-arrow-right"></i></div>
+            </div>
+            <div class="service-card modal-trigger" data-delay="150">
+                <span class="service-icon mop" style="color:#F07C1A">🏡</span>
+                <div class="service-tag">Residential</div>
+                <div class="service-name">House Deep Clean</div>
+                <div class="service-desc">Room-by-room intensive cleaning including kitchen, bathrooms, bedrooms, and
+                    living areas. Leave every corner spotless.</div>
+                <div class="service-arrow"><i class="fas fa-arrow-right"></i></div>
+            </div>
+            <div class="service-card modal-trigger" data-delay="200">
+                <span class="service-icon chimney" style="color:#888">🪵</span>
+                <div class="service-tag">Kitchen</div>
+                <div class="service-name">Chimney Cleaning</div>
+                <div class="service-desc">High-pressure soot removal and grease buildup extraction from chimney ducts,
+                    filters, and exhaust systems. Safe, fast, thorough.</div>
+                <div class="service-arrow"><i class="fas fa-arrow-right"></i></div>
+            </div>
+            <div class="service-card modal-trigger" data-delay="250">
+                <span class="service-icon spray" style="color:#2AACDC">💧</span>
+                <div class="service-tag">Utility</div>
+                <div class="service-name">Water Tank Cleaning</div>
+                <div class="service-desc">Overhead and underground tank desilting, scrubbing, and disinfection using
+                    food-grade chemicals for safe, clean drinking water.</div>
+                <div class="service-arrow"><i class="fas fa-arrow-right"></i></div>
+            </div>
+            <div class="service-card modal-trigger" data-delay="300">
+                <span class="service-icon pool" style="color:#2AACDC">🏊</span>
+                <div class="service-tag">Luxury</div>
+                <div class="service-name">Swimming Pool Cleaning</div>
+                <div class="service-desc">Full pool maintenance including algae removal, chemical balancing, filter
+                    cleaning, and wall scrubbing for crystal-clear water.</div>
+                <div class="service-arrow"><i class="fas fa-arrow-right"></i></div>
+            </div>
+            <div class="service-card modal-trigger" data-delay="350">
+                <span class="service-icon mop" style="color:#8B6914">🛏️</span>
+                <div class="service-tag">Bedroom</div>
+                <div class="service-name">Beds & Mattress Cleaning</div>
+                <div class="service-desc">UV sterilization and foam extraction cleaning for mattresses, pillows, and bed
+                    frames. Eliminate dust mites and allergens completely.</div>
+                <div class="service-arrow"><i class="fas fa-arrow-right"></i></div>
+            </div>
+            <div class="service-card modal-trigger" data-delay="400">
+                <span class="service-icon spray" style="color:#4fc3f0">🪟</span>
+                <div class="service-tag">Exterior</div>
+                <div class="service-name">Glass & Window Cleaning</div>
+                <div class="service-desc">Streak-free cleaning of all glass surfaces, windows, mirrors, and façades
+                    using professional squeegee systems and eco-safe solutions.</div>
+                <div class="service-arrow"><i class="fas fa-arrow-right"></i></div>
+            </div>
+            <div class="service-card modal-trigger" data-delay="450">
+                <span class="service-icon mop" style="color:#e67e22">🏪</span>
+                <div class="service-tag">Commercial</div>
+                <div class="service-name">Market (Pasar) Cleaning</div>
+                <div class="service-desc">Large-scale commercial space cleaning for markets, shops, and retail outlets.
+                    High-pressure washing, waste removal, and sanitization.</div>
+                <div class="service-arrow"><i class="fas fa-arrow-right"></i></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BEFORE AFTER -->
+    <section id="before-after" class="section">
+        <div class="section-header">
+            <div class="section-label">See the Difference</div>
+            <h2 class="section-title font-oswald text-4xl md:text-5xl font-bold leading-tight mb-4">Before <span
+                    class="title-accent">&</span> <span class="title-blue">After</span>
+            </h2>
+            <p class="section-sub text-base text-gray-400 max-w-2xl mx-auto leading-relaxed">Drag the squeegee handle to
+                reveal the transformation. Our results speak for
+                themselves.</p>
+        </div>
+        <div class="ba-container fade-up" id="ba-container">
+            <div class="ba-wrap" id="ba-wrap">
+                <div class="ba-before">
+                    <div class="ba-dirty-items">
+                        🕷️ 💧 🦠 🌫️ 💨
+                    </div>
+                </div>
+                <div class="ba-after" id="ba-after"></div>
+                <div class="ba-slider-line" id="ba-slider">
+                    <div class="ba-handle"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section id="how-it-works" class="section">
+        <div class="section-header">
+            <div class="section-label">Simple Process</div>
+            <h2 class="section-title font-oswald text-4xl md:text-5xl font-bold leading-tight mb-4">How It <span
+                    class="title-accent">Works</span></h2>
+            <p class="section-sub text-base text-gray-400 max-w-2xl mx-auto leading-relaxed">Getting a clean space has
+                never been easier. Three simple steps to a spotless
+                environment.</p>
+        </div>
+        <div class="steps-flow">
+            <div class="step-item" id="step1">
+                <div style="position:relative;display:inline-block;">
+                    <div class="step-icon-wrap">📞</div>
+                    <div class="step-num">1</div>
+                </div>
+                <div class="step-title">Book a Cleaning</div>
+                <div class="step-desc">Call us at +91 7337289189 or fill out our quick online form. Tell us your space,
+                    your needs, and your preferred time slot.</div>
+            </div>
+            <div class="step-connector" id="conn1">
+                <div class="step-connector-line"></div>
+            </div>
+            <div class="step-item" id="step2">
+                <div style="position:relative;display:inline-block;">
+                    <div class="step-icon-wrap">🧹</div>
+                    <div class="step-num">2</div>
+                </div>
+                <div class="step-title">We Deep Clean</div>
+                <div class="step-desc">Our trained professional team arrives on time with all equipment. We execute a
+                    thorough, systematic clean using premium-grade products.</div>
+            </div>
+            <div class="step-connector" id="conn2">
+                <div class="step-connector-line"></div>
+            </div>
+            <div class="step-item" id="step3">
+                <div style="position:relative;display:inline-block;">
+                    <div class="step-icon-wrap">✨</div>
+                    <div class="step-num">3</div>
+                </div>
+                <div class="step-title">You Shine</div>
+                <div class="step-desc">Inspect every corner. We only leave when you're 100% satisfied. Enjoy your fresh,
+                    spotless space and breathe easy again.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHY CHOOSE US -->
+    <section id="why-us" class="section">
+        <div class="section-header">
+            <div class="section-label">Our Promise</div>
+            <h2 class="section-title font-oswald text-4xl md:text-5xl font-bold leading-tight mb-4">Why <span
+                    class="title-blue">Choose</span> Us</h2>
+            <p class="section-sub text-base text-gray-400 max-w-2xl mx-auto leading-relaxed">We combine professional
+                expertise with genuine care to deliver cleaning results that
+                go beyond the surface.</p>
+        </div>
+        <div class="pillars-grid">
+            <div class="pillar-card">
+                <div class="pillar-icon">⚙️</div>
+                <div class="pillar-title">Professional Equipment</div>
+                <div class="pillar-desc">We invest in commercial-grade machines — industrial steam cleaners, HEPA-filter
+                    vacuums, and high-pressure washers — for results no mop can match.</div>
+            </div>
+            <div class="pillar-card">
+                <div class="pillar-icon">👷</div>
+                <div class="pillar-title">Trained & Verified Staff</div>
+                <div class="pillar-desc">Every team member is background-verified, professionally trained, and
+                    uniformed. We treat your space with the same respect as our own home.</div>
+            </div>
+            <div class="pillar-card">
+                <div class="pillar-icon">💰</div>
+                <div class="pillar-title">Transparent Pricing</div>
+                <div class="pillar-desc">No hidden charges, no surprise fees. You get a clear quote upfront and pay only
+                    for what was agreed. Honest billing, every single time.</div>
+            </div>
+            <div class="pillar-card">
+                <div class="pillar-icon">🛡️</div>
+                <div class="pillar-title">100% Satisfaction Guarantee</div>
+                <div class="pillar-desc">If anything doesn't meet your expectations, we come back and re-clean it — at
+                    no additional cost. Your satisfaction is our non-negotiable standard.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section id="testimonials" class="section">
+        <div class="section-header">
+            <div class="section-label">Client Love</div>
+            <h2 class="section-title font-oswald text-4xl md:text-5xl font-bold leading-tight mb-4">What Tirupati <span
+                    class="title-accent">Says</span></h2>
+            <p class="section-sub text-base text-gray-400 max-w-2xl mx-auto leading-relaxed">Real feedback from real
+                homeowners and businesses across the city.</p>
+        </div>
+        <div class="testi-track-wrap">
+            <div class="testi-track" id="testi-track">
+                <!-- Cards duplicated for infinite scroll -->
+                <div class="testi-card">
+                    <div class="testi-stars">★★★★★</div>
+                    <div class="testi-text">"MG Deep Cleaning transformed our kitchen completely. The chimney was caked
+                        with grease from years of cooking and their team had it spotless in two hours. Ganesh garu is
+                        very professional and the price was totally fair. Highly recommended!"</div>
+                    <div class="testi-author">
+                        <div class="testi-avatar" style="background:linear-gradient(135deg,#F07C1A,#ff9a3c);">RV</div>
+                        <div>
+                            <div class="testi-name">Ramesh Varma</div>
+                            <div class="testi-loc">📍 Balaji Nagar, Tirupati</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testi-card">
+                    <div class="testi-stars">★★★★★</div>
+                    <div class="testi-text">"We hired them for our swimming pool before our son's birthday party. They
+                        came the day before, cleaned every wall and balanced the chemicals — the water looked like the
+                        hotel pools you see in magazines. Absolutely brilliant service!"</div>
+                    <div class="testi-author">
+                        <div class="testi-avatar" style="background:linear-gradient(135deg,#2AACDC,#4fc3f0);">PL</div>
+                        <div>
+                            <div class="testi-name">Padmavathi Lakshmi</div>
+                            <div class="testi-loc">📍 Srinivasam Colony, Tirupati</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testi-card">
+                    <div class="testi-stars">★★★★★</div>
+                    <div class="testi-text">"Our water tank hadn't been cleaned in three years. The team came, drained
+                        it, scrubbed every corner, and disinfected it properly. Ever since, the water tastes noticeably
+                        better. We've scheduled them every 6 months going forward."</div>
+                    <div class="testi-author">
+                        <div class="testi-avatar" style="background:linear-gradient(135deg,#27ae60,#2ecc71);">SK</div>
+                        <div>
+                            <div class="testi-name">Suresh Kumar</div>
+                            <div class="testi-loc">📍 PK Layout, Tirupati</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testi-card">
+                    <div class="testi-stars">★★★★★</div>
+                    <div class="testi-text">"I run a small textile shop near Korlagunta. After festival season, the
+                        floor and display areas were a mess. MG's team cleaned everything overnight and we opened fresh
+                        the next morning. Customers noticed and even commented on how clean it looked!"</div>
+                    <div class="testi-author">
+                        <div class="testi-avatar" style="background:linear-gradient(135deg,#8e44ad,#9b59b6);">AS</div>
+                        <div>
+                            <div class="testi-name">Anitha Srinivas</div>
+                            <div class="testi-loc">📍 Korlagunta, Tirupati</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testi-card">
+                    <div class="testi-stars">★★★★★</div>
+                    <div class="testi-text">"The sofa foam wash is genuinely impressive. We have a cream-colored sofa
+                        with a toddler at home — you can imagine the state. They brought special equipment and cleaned
+                        it without leaving it soggy. Dried within hours and looks brand new."</div>
+                    <div class="testi-author">
+                        <div class="testi-avatar" style="background:linear-gradient(135deg,#e74c3c,#e17055);">VP</div>
+                        <div>
+                            <div class="testi-name">Venkata Prasad</div>
+                            <div class="testi-loc">📍 Karakambadi Road, Tirupati</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Duplicate for seamless loop -->
+                <div class="testi-card">
+                    <div class="testi-stars">★★★★★</div>
+                    <div class="testi-text">"MG Deep Cleaning transformed our kitchen completely. The chimney was caked
+                        with grease from years of cooking and their team had it spotless in two hours. Ganesh garu is
+                        very professional and the price was totally fair. Highly recommended!"</div>
+                    <div class="testi-author">
+                        <div class="testi-avatar" style="background:linear-gradient(135deg,#F07C1A,#ff9a3c);">RV</div>
+                        <div>
+                            <div class="testi-name">Ramesh Varma</div>
+                            <div class="testi-loc">📍 Balaji Nagar, Tirupati</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testi-card">
+                    <div class="testi-stars">★★★★★</div>
+                    <div class="testi-text">"We hired them for our swimming pool before our son's birthday party. They
+                        came the day before, cleaned every wall and balanced the chemicals — the water looked like the
+                        hotel pools you see in magazines. Absolutely brilliant service!"</div>
+                    <div class="testi-author">
+                        <div class="testi-avatar" style="background:linear-gradient(135deg,#2AACDC,#4fc3f0);">PL</div>
+                        <div>
+                            <div class="testi-name">Padmavathi Lakshmi</div>
+                            <div class="testi-loc">📍 Srinivasam Colony, Tirupati</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testi-card">
+                    <div class="testi-stars">★★★★★</div>
+                    <div class="testi-text">"Our water tank hadn't been cleaned in three years. The team came, drained
+                        it, scrubbed every corner, and disinfected it properly. Ever since, the water tastes noticeably
+                        better. We've scheduled them every 6 months going forward."</div>
+                    <div class="testi-author">
+                        <div class="testi-avatar" style="background:linear-gradient(135deg,#27ae60,#2ecc71);">SK</div>
+                        <div>
+                            <div class="testi-name">Suresh Kumar</div>
+                            <div class="testi-loc">📍 PK Layout, Tirupati</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- REVIEW IMAGE GALLERY (Auto-sliding) -->
+    <section id="review-gallery" class="section" style="padding-top:0;">
+        <div class="gallery-container">
+            <div class="gallery-track">
+                <!-- 7 Unique Review Images -->
+                <div class="gallery-item"><img
+                        src="https://images.unsplash.com/photo-1560066984-138dadb4c035?q=80&w=400&h=600&fit=crop"
+                        alt="Review 1"></div>
+                <div class="gallery-item"><img
+                        src="https://images.unsplash.com/photo-1581578731548-c64695cc6958?q=80&w=400&h=600&fit=crop"
+                        alt="Review 2"></div>
+                <div class="gallery-item"><img
+                        src="https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?q=80&w=400&h=600&fit=crop"
+                        alt="Review 3"></div>
+                <div class="gallery-item"><img
+                        src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=400&h=600&fit=crop"
+                        alt="Review 4"></div>
+                <div class="gallery-item"><img
+                        src="https://images.unsplash.com/photo-1556911220-e15595b29f0c?q=80&w=400&h=600&fit=crop"
+                        alt="Review 5"></div>
+                <div class="gallery-item"><img
+                        src="https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?q=80&w=400&h=600&fit=crop"
+                        alt="Review 6"></div>
+                <div class="gallery-item"><img
+                        src="https://images.unsplash.com/photo-1584622781564-1d987f7333c1?q=80&w=400&h=600&fit=crop"
+                        alt="Review 7"></div>
+
+                <!-- Duplicate for seamless loop -->
+                <div class="gallery-item"><img
+                        src="https://images.unsplash.com/photo-1560066984-138dadb4c035?q=80&w=400&h=600&fit=crop"
+                        alt="Review 1"></div>
+                <div class="gallery-item"><img
+                        src="https://images.unsplash.com/photo-1581578731548-c64695cc6958?q=80&w=400&h=600&fit=crop"
+                        alt="Review 2"></div>
+                <div class="gallery-item"><img
+                        src="https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?q=80&w=400&h=600&fit=crop"
+                        alt="Review 3"></div>
+                <div class="gallery-item"><img
+                        src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=400&h=600&fit=crop"
+                        alt="Review 4"></div>
+                <div class="gallery-item"><img
+                        src="https://images.unsplash.com/photo-1556911220-e15595b29f0c?q=80&w=400&h=600&fit=crop"
+                        alt="Review 5"></div>
+                <div class="gallery-item"><img
+                        src="https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?q=80&w=400&h=600&fit=crop"
+                        alt="Review 6"></div>
+                <div class="gallery-item"><img
+                        src="https://images.unsplash.com/photo-1584622781564-1d987f7333c1?q=80&w=400&h=600&fit=crop"
+                        alt="Review 7"></div>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 40px;">
+            <a href="reviews.html" class="btn-secondary" style="display: inline-flex; align-items: center; gap: 8px;">
+                View All Reviews <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section">
+        <div class="section-header">
+            <div class="section-label">Get in Touch</div>
+            <h2 class="section-title font-oswald text-4xl md:text-5xl font-bold leading-tight mb-4">Book Your <span
+                    class="title-accent">Free Quote</span></h2>
+            <p class="section-sub text-base text-gray-400 max-w-2xl mx-auto leading-relaxed">Ready for a spotless space?
+                Reach out and we'll get back to you within the hour.</p>
+        </div>
+        <div class="contact-grid">
+            <div class="contact-info fade-up">
+                <div class="contact-info-title">Contact Details</div>
+                <div class="info-item">
+                    <div class="info-icon"><i class="fas fa-user"></i></div>
+                    <div>
+                        <div class="info-label">Owner</div>
+                        <div class="info-value">B. Ganesh</div>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon"><i class="fas fa-phone-alt"></i></div>
+                    <div>
+                        <div class="info-label">Phone / WhatsApp</div>
+                        <div class="info-value"><a href="tel:+917337289189" style="color:var(--orange);">+91
+                                7337289189</a></div>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
+                    <div>
+                        <div class="info-label">Address</div>
+                        <div class="info-value">#13-30-S-278, PK Layout,<br>Tirupati, Andhra Pradesh – 517 501</div>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon"><i class="fas fa-clock"></i></div>
+                    <div>
+                        <div class="info-label">Working Hours</div>
+                        <div class="info-value">Mon – Sat: 7:00 AM – 8:00 PM<br>Sunday: 8:00 AM – 6:00 PM</div>
+                    </div>
+                </div>
+                <div class="map-placeholder">
+                    <div class="map-pin">📍</div>
+                    <div class="map-label">PK Layout, Tirupati, A.P. — 517 501</div>
+                </div>
+            </div>
+            <div class="contact-form fade-up" style="transition-delay:0.15s;">
+                <div class="form-title">Request a Free Quote</div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Full Name *</label>
+                        <input type="text" class="form-input" placeholder="Your full name">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Phone Number *</label>
+                        <input type="tel" class="form-input" placeholder="+91 XXXXX XXXXX">
+                    </div>
+                    <div class="form-group full">
+                        <label class="form-label">Service Required *</label>
+                        <select class="form-select">
+                            <option value="">— Select a service —</option>
+                            <option>Washroom Cleaning</option>
+                            <option>Sofa Foam Wash</option>
+                            <option>Carpet Cleaning</option>
+                            <option>House Deep Clean</option>
+                            <option>Chimney Cleaning</option>
+                            <option>Water Tank Cleaning</option>
+                            <option>Swimming Pool Cleaning</option>
+                            <option>Beds & Mattress Cleaning</option>
+                            <option>Glass & Window Cleaning</option>
+                            <option>Market (Pasar) Cleaning</option>
+                        </select>
+                    </div>
+                    <div class="form-group full">
+                        <label class="form-label">Your Address</label>
+                        <input type="text" class="form-input" placeholder="Area, Tirupati">
+                    </div>
+                    <div class="form-group full">
+                        <label class="form-label">Message</label>
+                        <textarea class="form-textarea"
+                            placeholder="Tell us more about your cleaning needs..."></textarea>
+                    </div>
+                    <div class="form-group full">
+                        <button class="form-submit btn-primary" onclick="handleFormSubmit(event)">
+                            <i class="fas fa-paper-plane" style="margin-right:8px;"></i>
+                            Send My Quote Request ✨
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-top">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <div class="nav-logo-mark">MG<div class="nav-logo-roof"></div>
+                    </div>
+                    <div>
+                        <div class="nav-brand-text">MG <span style="color:var(--orange)">Deep Clean</span></div>
+                        <div style="font-size:0.7rem;color:var(--text-muted);letter-spacing:1px;">TIRUPATI · EST. 2018
+                        </div>
+                    </div>
+                </div>
+                <p class="footer-tagline">Bringing the sparkle back to homes and businesses across Tirupati.
+                    Professional, reliable, and spotlessly thorough — every single time.</p>
+                <div class="footer-social">
+                    <a href="https://wa.me/917337289189?text=Hi%2C%20I'm%20interested%20in%20your%20Deep%20Cleaning%20services!"
+                        class="social-icon"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-mobile-row">
+                <div>
+                    <div class="footer-col-title">Services</div>
+                    <div class="footer-links">
+                        <a href="#services">Washroom Cleaning</a>
+                        <a href="#services">Sofa Foam Wash</a>
+                        <a href="#services">Carpet Cleaning</a>
+                        <a href="#services">House Deep Clean</a>
+                        <a href="#services">Chimney Cleaning</a>
+                    </div>
+                </div>
+                <div>
+                    <div class="footer-col-title">More Services</div>
+                    <div class="footer-links">
+                        <a href="#services">Water Tank</a>
+                        <a href="#services">Pool Cleaning</a>
+                        <a href="#services">Beds & Mattress</a>
+                        <a href="#services">Glass & Windows</a>
+                        <a href="#services">Market Cleaning</a>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="footer-col-title">Contact Us</div>
+                <div class="footer-contact-item">
+                    <i class="fas fa-user"></i>
+                    <span>B. Ganesh — Owner</span>
+                </div>
+                <div class="footer-contact-item">
+                    <i class="fas fa-phone-alt"></i>
+                    <span><a href="tel:+917337289189" style="color:var(--orange);">+91 7337289189</a></span>
+                </div>
+                <div class="footer-contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>#13-30-S-278, PK Layout, Tirupati (A.P) – 517 501</span>
+                </div>
+                <div class="footer-contact-item">
+                    <i class="fas fa-clock"></i>
+                    <span>Mon–Sat: 7AM–8PM<br>Sun: 8AM–6PM</span>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-copy">© 2025 <span>MG Deep Cleaning Services</span>. All rights reserved. Tirupati, A.P.
+            </div>
+            <div class="footer-copy">Made with <span>❤️</span> for MG Deep Cleaning Tirupati</div>
+        </div>
+    </footer>
+
+
+
+    <!-- SERVICE MODAL -->
+    <div class="modal-overlay" id="service-modal">
+        <div class="modal-content">
+            <button class="modal-close" id="modal-close" aria-label="Close modal">
+                <i class="fas fa-times"></i>
+            </button>
+            <div id="modal-icon" style="font-size: 3rem; margin-bottom: 15px;"></div>
+            <div id="modal-tag"
+                style="font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; color: var(--orange); margin-bottom: 8px;">
+            </div>
+            <h3 id="modal-title"
+                style="font-family: 'Oswald', sans-serif; font-size: 2rem; margin-bottom: 15px; line-height: 1.1;"></h3>
+            <p id="modal-desc" style="color: var(--text-muted); line-height: 1.6; margin-bottom: 25px;"></p>
+            <a href="tel:+917337289189" class="btn-primary" id="modal-book"
+                style="display: inline-block; width: 100%; text-align: center;">Book Now</a>
+        </div>
+    </div>
+
+    <!-- FLOATING WHATSAPP -->
+    <a href="https://wa.me/917337289189?text=Hi%2C%20I'm%20interested%20in%20your%20Deep%20Cleaning%20services!"
+        class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
