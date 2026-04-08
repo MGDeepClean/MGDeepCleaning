@@ -4,7 +4,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Reviews | MG Deep Cleaning Tirupati</title>
+    <title>Customer Reviews & Gallery | MG Deep Cleaning Tirupati</title>
+    
+    <!-- PRIMARY SEO -->
+    <meta name="description" content="View our work gallery and verified customer reviews. See why MG Deep Clean is the most trusted cleaning service in Tirupati. Before and after photos of deep cleaning projects.">
+    <meta name="keywords" content="tirupati cleaning reviews, service photos mg deep clean, house cleaning gallery, best cleaners tirupati feedback, verified cleaning reviews, sofa cleaning results, deep cleaning work photos">
+    <meta name="author" content="MG Deep Clean">
+    <meta name="robots" content="index, follow">
+
+    <!-- GEO TAGS (Local SEO) -->
+    <meta name="geo.region" content="IN-AP">
+    <meta name="geo.placename" content="Tirupati">
+    <meta name="geo.position" content="13.6288;79.4192">
+    <meta name="ICBM" content="13.6288, 79.4192">
+    
+    <!-- OPEN GRAPH -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Verified Reviews & Work Gallery | MG Deep Clean">
+    <meta property="og:description" content="Check out our 5-star cleaning results in Tirupati. Real photos, real customers, real sparkle.">
+    <meta property="og:image" content="https://mgdeepclean.com/assets/gallery-preview.jpg">
+
+    <!-- FAVICON -->
+    <link rel="icon" type="image/png" href="assets/favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -35,9 +56,9 @@
     <!-- MOBILE MENU -->
     <div class="mobile-menu" id="mobile-menu">
         <button class="mobile-close" id="mobile-close" aria-label="Close menu"><i class="fas fa-times"></i></button>
+        <a href="index.html">Home</a>
         <a href="index.html#services">Services</a>
-        <a href="index.html#about">About</a>
-        <a href="index.html#testimonials">Reviews</a>
+        <a href="index.html#review-gallery">Gallery</a>
         <a href="index.html#contact">Contact</a>
         <a href="tel:+917337289189" class="nav-phone" style="text-align:center;display:block;">
             <i class="fas fa-phone-alt"></i> +91 7337289189
@@ -58,7 +79,7 @@
         <div class="nav-links">
             <a href="index.html">Home</a>
             <a href="index.html#services">Services</a>
-            <a href="index.html#before-after">Gallery</a>
+            <a href="index.html#review-gallery">Gallery</a>
             <a href="index.html#contact">Contact</a>
         </div>
         <div style="display: flex; align-items: center; gap: 15px;">
@@ -86,8 +107,27 @@
             <div class="section-label">Wall of Love</div>
             <h1 class="section-title font-oswald text-5xl font-bold mb-6">Customer <span
                     class="title-accent">Reviews</span></h1>
-            <p class="section-sub text-gray-400 max-w-2xl mx-auto">See why hundreds of families and businesses in
+            <p class="section-sub text-gray-400 max-w-2xl mx-auto mb-8">See why hundreds of families and businesses in
                 Tirupati trust MG Deep Cleaning for their spaces.</p>
+            <button onclick="openReviewModal()" class="btn-primary relative z-10"
+                style="padding: 12px 30px; font-size: 1.1rem; border-radius: 50px;">
+                <i class="fas fa-pen-nib mr-2"></i> Write a Review
+            </button>
+        </div>
+
+        <div class="filter-bar">
+            <button class="filter-btn active" id="filter-image" onclick="updateFilter('image')">
+                <i class="fas fa-image"></i> Images
+            </button>
+            <!-- <button class="filter-btn" id="filter-all" onclick="updateFilter('all')">
+                <i class="fas fa-th-large"></i> All
+            </button> -->
+            <button class="filter-btn" id="filter-text" onclick="updateFilter('text')">
+                <i class="fas fa-font"></i> Text
+            </button>
+            <button class="filter-btn" id="filter-video" onclick="updateFilter('youtube')">
+                <i class="fas fa-video"></i> Videos
+            </button>
         </div>
 
         <div id="reviews-loader" class="text-center py-10">
@@ -96,7 +136,7 @@
         </div>
 
         <div id="reviews-grid"
-            class="max-w-7xl mx-auto px-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 opacity-0 transition-opacity duration-500">
+            class="max-w-7xl mx-auto px-5 grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-8 opacity-0 transition-opacity duration-500">
             <!-- Dynamic reviews will be injected here -->
         </div>
 
@@ -182,94 +222,129 @@
         </div>
     </footer>
 
+    <!-- SUBMIT REVIEW MODAL -->
+    <div id="review-modal" class="fixed inset-0 z-[9999] flex items-center justify-center pt-20 pb-4 hidden"
+        style="background: rgba(0,0,0,0.85); backdrop-filter: blur(8px);">
+        <div
+            class="bg-[#1a1a1a] border border-white/10 rounded-2xl p-6 md:p-8 max-w-2xl w-full mx-4 max-h-[85vh] overflow-y-auto relative shadow-2xl">
+            <button onclick="closeReviewModal()"
+                class="absolute top-4 right-4 text-gray-400 hover:text-white transition group focus:outline-none">
+                <i class="fas fa-times text-2xl group-hover:rotate-90 transition-transform"></i>
+            </button>
+
+            <div class="mb-6 text-center md:text-left">
+                <h2 class="text-3xl font-oswald font-bold text-white mb-2">Share Your Experience</h2>
+                <p class="text-gray-400 text-sm border-b border-white/10 pb-4">Your feedback helps us improve and helps
+                    others choose MG Deep Cleaning.</p>
+            </div>
+
+            <form id="customer-review-form" onsubmit="submitCustomerReview(event)">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+                    <div>
+                        <label class="block text-sm font-bold text-gray-300 mb-2">Full Name <span
+                                class="text-red-500">*</span></label>
+                        <input type="text" id="cust-name" name="customerName" required
+                            class="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-3 text-white focus:border-orange focus:outline-none transition">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-300 mb-2">Phone Number <span
+                                class="text-red-500">*</span></label>
+                        <input type="tel" id="cust-phone" name="phone" required
+                            class="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-3 text-white focus:border-orange focus:outline-none transition"
+                            placeholder="e.g. 9876543210" pattern="[0-9]{10}"
+                            title="Please enter a valid 10-digit phone number">
+                        <p class="text-xs text-orange mt-1"><i class="fas fa-lock"></i> Won't be shared publicly</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+                    <div>
+                        <label class="block text-sm font-bold text-gray-300 mb-2">Address / Area</label>
+                        <input type="text" id="cust-address" name="address"
+                            class="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-3 text-white focus:border-orange focus:outline-none transition"
+                            placeholder="e.g. KT Road, Tirupati">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-300 mb-2">Date of Service</label>
+                        <input type="date" id="cust-date" name="date"
+                            class="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-3 text-white focus:border-orange focus:outline-none transition"
+                            style="color-scheme: dark;">
+                    </div>
+                </div>
+
+                <div class="mb-5">
+                    <label class="block text-sm font-bold text-gray-300 mb-2">Service Rendered</label>
+                    <select id="cust-category" name="category"
+                        class="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-3 text-white focus:border-orange focus:outline-none transition">
+                        <option>House Deep Cleaning</option>
+                        <option>Sofa / Carpet Wash</option>
+                        <option>Bathroom Cleaning</option>
+                        <option>Kitchen Deep Cleaning</option>
+                        <option>Water Tank Cleaning</option>
+                        <option>Other Services</option>
+                    </select>
+                </div>
+
+                <div class="mb-5">
+                    <label class="block text-sm font-bold text-gray-300 mb-2">Your Rating <span
+                            class="text-red-500">*</span></label>
+                    <div class="flex gap-2 text-2xl text-gray-600 cursor-pointer" id="modal-stars">
+                        <i class="fas fa-star hover:text-orange transition" onclick="setRating(1)"></i>
+                        <i class="fas fa-star hover:text-orange transition" onclick="setRating(2)"></i>
+                        <i class="fas fa-star hover:text-orange transition" onclick="setRating(3)"></i>
+                        <i class="fas fa-star hover:text-orange transition" onclick="setRating(4)"></i>
+                        <i class="fas fa-star hover:text-orange transition" onclick="setRating(5)"></i>
+                    </div>
+                    <input type="hidden" id="customer-rating" name="rating" required>
+                </div>
+
+                <div class="mb-5">
+                    <label class="block text-sm font-bold text-gray-300 mb-2">Your Review <span
+                            class="text-red-500">*</span></label>
+                    <textarea id="cust-text" name="reviewText" required rows="4"
+                        class="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-3 text-white focus:border-orange focus:outline-none transition"
+                        placeholder="Tell us what you liked about our service..."></textarea>
+                </div>
+
+                <div class="mb-8">
+                    <label class="block text-sm font-bold text-gray-300 mb-2">Upload an Image (Optional)</label>
+                    <input type="file" id="cust-image" name="image" accept="image/*"
+                        class="w-full text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-bold file:bg-orange/20 file:text-orange hover:file:bg-orange/30 transition cursor-pointer">
+                </div>
+
+                <button type="submit"
+                    class="w-full btn-primary py-4 rounded-xl text-lg font-bold flex justify-center items-center gap-2">
+                    <i class="fas fa-paper-plane"></i> Submit Review
+                </button>
+            </form>
+        </div>
+    </div>
+
     <!-- FLOATING WHATSAPP -->
     <a href="https://wa.me/917337289189?text=Hi%2C%20I'm%20interested%20in%20your%20Deep%20Cleaning%20services!"
         class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
         <i class="fab fa-whatsapp"></i>
     </a>
 
-    <!-- SHARED SCRIPTS -->
-    <script src="script.js"></script>
-    <!-- DYNAMIC REVIEWS SCRIPT -->
-    <script>
-        let allReviews = [];
-        let currentPage = 1;
-        const itemsPerPage = 12;
+    <!-- REVIEW DETAIL MODAL (SHOW MORE) -->
+    <div id="review-detail-modal" class="modal-popup-overlay">
+        <div class="review-detail-card">
+            <button onclick="closeReviewDetail()"
+                class="absolute top-4 right-4 text-gray-400 hover:text-white transition group focus:outline-none">
+                <i class="fas fa-times text-2xl group-hover:rotate-90 transition-transform"></i>
+            </button>
+            <div id="review-detail-body" class="review-detail-content">
+                <!-- Content will be injected -->
+            </div>
+            <div id="review-detail-author-wrap">
+                <!-- Author Info -->
+            </div>
+        </div>
+    </div>
 
-        async function fetchReviews() {
-            const grid = document.getElementById('reviews-grid');
-            const pagination = document.getElementById('pagination-controls');
-            const loader = document.getElementById('reviews-loader');
-
-            try {
-                const response = await fetch('reviews.json');
-                allReviews = await response.json();
-
-                renderPage(1);
-
-                // Show grid and pagination
-                loader.style.display = 'none';
-                grid.classList.remove('opacity-0');
-                pagination.classList.remove('opacity-0');
-
-            } catch (error) {
-                console.error('Error fetching reviews:', error);
-                loader.innerHTML = '<p class="text-red-500">Failed to load reviews. Please try again later.</p>';
-            }
-        }
-
-        function renderPage(page) {
-            currentPage = page;
-            const grid = document.getElementById('reviews-grid');
-            const startIndex = (page - 1) * itemsPerPage;
-            const endIndex = startIndex + itemsPerPage;
-            const pageReviews = allReviews.slice(startIndex, endIndex);
-
-            grid.innerHTML = pageReviews.map(review => `
-                <div class="bg-charcoal-light border border-white/5 rounded-2xl overflow-hidden shadow-2xl hover:border-orange/30 transition-all duration-300 group">
-                    <div class="relative overflow-hidden h-[400px]">
-                        <img src="${review.url}" alt="${review.alt}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                            <span class="bg-orange px-3 py-1 rounded-full text-xs font-bold text-white uppercase tracking-widest">${review.category}</span>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-
-            updatePagination();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function updatePagination() {
-            const totalPages = Math.ceil(allReviews.length / itemsPerPage);
-            const prevBtn = document.getElementById('prev-page');
-            const nextBtn = document.getElementById('next-page');
-            const pageNumbers = document.getElementById('page-numbers');
-
-            prevBtn.disabled = currentPage === 1;
-            nextBtn.disabled = currentPage === totalPages;
-
-            pageNumbers.innerHTML = '';
-            for (let i = 1; i <= totalPages; i++) {
-                const btn = document.createElement('button');
-                btn.innerText = i;
-                btn.className = `page-num-btn ${i === currentPage ? 'active' : ''}`;
-                btn.onclick = () => renderPage(i);
-                pageNumbers.appendChild(btn);
-            }
-        }
-
-        document.getElementById('prev-page').onclick = () => {
-            if (currentPage > 1) renderPage(currentPage - 1);
-        };
-
-        document.getElementById('next-page').onclick = () => {
-            const totalPages = Math.ceil(allReviews.length / itemsPerPage);
-            if (currentPage < totalPages) renderPage(currentPage + 1);
-        };
-
-        window.onload = fetchReviews;
-    </script>
+    <!-- Main Website Logic -->
+    <script src="config.js"></script>
+    <script src="main.js"></script>
 </body>
 
 </html>
