@@ -344,7 +344,7 @@ async function deleteQuote(id) {
                 credentials: 'include'
             });
             if (res.ok) {
-                showToast("Quote deleted successfully");
+                showToast("Booking deleted successfully");
                 loadQuotes();
                 loadDashboard();
             } else if (res.status === 401) {
