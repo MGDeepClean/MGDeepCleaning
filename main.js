@@ -610,9 +610,21 @@ function openReviewModal() {
     document.body.style.overflow = 'hidden';
 }
 
-function closeReviewModal() {
-    document.getElementById('review-modal')?.classList.add('hidden');
-    document.body.style.overflow = '';
+function hideSuccessModal() {
+    const overlay = document.getElementById('success-overlay');
+    if (overlay) overlay.classList.remove('show');
+}
+
+function showSuccessModal() {
+    const overlay = document.getElementById('success-overlay');
+    const lottie = document.getElementById('success-lottie');
+    if (overlay) {
+        overlay.classList.add('show');
+        if (lottie) {
+            lottie.seek(0);
+            lottie.play();
+        }
+    }
 }
 
 async function submitCustomerReview(e) {
@@ -818,4 +830,13 @@ window.addEventListener('load', () => {
 if (document.getElementById('prev-page')) {
     document.getElementById('prev-page').onclick = () => { if (currentPage > 1) renderPage(currentPage - 1); };
     document.getElementById('next-page').onclick = () => { if (currentPage < Math.ceil(allReviews.length/itemsPerPage)) renderPage(currentPage + 1); };
+}
+
+// ===== REGISTER SERVICE WORKER (PWA) =====
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+            .then(reg => console.log('🚀 MG Deep Clean: Service Worker Registered'))
+            .catch(err => console.log('❌ Service Worker Register Error:', err));
+    });
 }

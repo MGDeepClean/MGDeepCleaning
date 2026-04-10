@@ -107,6 +107,14 @@
     </script>
     <!-- EXTERNAL STYLESHEET (Complex Animations & UI) -->
     <link rel="stylesheet" href="mg-style.css">
+    
+    <!-- 📱 PWA & MOBILE SUPPORT -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#F07C1A">
+    <link rel="apple-touch-icon" href="assets/app-icon.png">
+    
+    <!-- 🍭 LOTTIE ANIMATIONS -->
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 </head>
 
 <body>
@@ -246,6 +254,24 @@
             </div>
         </div>
     </section>
+    
+    <!-- 🛡️ ELITE TRUST BAR -->
+    <div class="trust-bar section-fade">
+        <div class="trust-item">
+            <i class="fas fa-user-shield"></i>
+            <div class="trust-text">Verified Staff</div>
+        </div>
+        <div class="trust-divider"></div>
+        <div class="trust-item">
+            <i class="fas fa-leaf"></i>
+            <div class="trust-text">Eco-Safe Products</div>
+        </div>
+        <div class="trust-divider"></div>
+        <div class="trust-item">
+            <i class="fas fa-award"></i>
+            <div class="trust-text">Premium Guarantee</div>
+        </div>
+    </div>
 
     <!-- SERVICES -->
     <section id="services" class="section">
@@ -678,21 +704,21 @@
     </a>
 
     <!-- Success Overlay -->
-    <div id="success-overlay">
-        <div class="success-card">
-            <div class="success-icon-wrap">
-                <i class="fas fa-check"></i>
-            </div>
-            <h2 class="success-title">Message Sent!</h2>
-            <p class="success-msg">Thank you for choosing MG Deep Cleaning. Our team will contact you within the next 60
-                minutes to confirm your booking.</p>
-            <button class="btn-primary" onclick="closeSuccessModal()">
-                Back to Website
-            </button>
+    <!-- Success Overlay -->
+    <div class="success-overlay" id="success-overlay">
+        <div class="success-content">
+            <lottie-player id="success-lottie" 
+                src="https://assets3.lottiefiles.com/packages/lf20_at6ayqas.json" 
+                background="transparent" speed="1" style="width: 150px; height: 150px; margin: 0 auto;">
+            </lottie-player>
+            <h2 style="font-family: 'Oswald', sans-serif; font-size: 2rem; margin-bottom: 10px;">Quote Sent!</h2>
+            <p style="color: var(--text-muted); margin-bottom: 25px;">Your inquiry has reached us. We'll contact you in less than 30 minutes! 🧹✨</p>
+            <button class="btn-primary" onclick="hideSuccessModal()" style="width: 100%;">Great!</button>
         </div>
     </div>
 
     <!-- Main Website Logic -->
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <script src="config.js"></script>
     <script src="main.js"></script>
 </body>
