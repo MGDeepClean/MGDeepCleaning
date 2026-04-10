@@ -832,11 +832,25 @@ if (document.getElementById('prev-page')) {
     document.getElementById('next-page').onclick = () => { if (currentPage < Math.ceil(allReviews.length/itemsPerPage)) renderPage(currentPage + 1); };
 }
 
-// ===== REGISTER SERVICE WORKER (PWA) =====
+// ===== REGISTER SERVICE WORKER (PWA) WITH AUTO-UPDATE =====
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js')
-            .then(reg => console.log('🚀 MG Deep Clean: Service Worker Registered'))
+        // Register the Service Worker
+        navigator.serviceWorker.register('/sw.js?v=1.1')
+            .then(reg => {
+                console.log('🚀 MG Deep Clean: Service Worker Registered');
+                
+                // If there's an update, skip waiting and refresh
+                reg.onupdatefound = () => {
+                    const installingWorker = reg.installing;
+                    installingWorker.onstatechange = () => {
+                        if (installingWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                            console.log('🔄 New version found! Force refreshing...');
+                            window.location.reload();
+                        }
+                    };
+                };
+            })
             .catch(err => console.log('❌ Service Worker Register Error:', err));
     });
 }
