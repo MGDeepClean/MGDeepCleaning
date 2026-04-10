@@ -14,9 +14,40 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Dedicated Admin Styles -->
     <link rel="stylesheet" href="admin-style.css">
+    <link rel="stylesheet" href="mg-style.css">
 </head>
 
 <body class="bg-[#0a0a0a] text-white">
+    <!-- Premium Pre-loader -->
+    <div id="preloader">
+        <div class="loader-bubbles">
+            <span style="left:10%; width:40px; height:40px; animation-delay:0s;"></span>
+            <span style="left:30%; width:20px; height:20px; animation-delay:2s;"></span>
+            <span style="left:50%; width:50px; height:50px; animation-delay:1s;"></span>
+            <span style="left:70%; width:30px; height:30px; animation-delay:3s;"></span>
+            <span style="left:90%; width:45px; height:45px; animation-delay:1.5s;"></span>
+        </div>
+        <div class="loader-content">
+            <div class="loader-logo">MG</div>
+            <div class="loader-bar-wrap">
+                <div class="loader-bar"></div>
+            </div>
+            <p class="text-[10px] uppercase tracking-[4px] text-gray-400 mt-4">Deep Cleaning Services</p>
+        </div>
+    </div>
+
+    <script>
+        // Inline loader logic for admin page
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('preloader');
+            if (loader) {
+                setTimeout(() => {
+                    loader.classList.add('fade-out');
+                    setTimeout(() => loader.remove(), 800);
+                }, 1500);
+            }
+        });
+    </script>
     <!-- Auth Guard -->
     <script src="config.js"></script>
     <script>

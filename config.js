@@ -4,12 +4,11 @@
  */
 
 const CONFIG = {
-    // 🛠️ DEVELOPMENT: Use localhost
-    development: "http://localhost:5000",
+    // 🛠️ DEVELOPMENT: Using Render API for local testing
+    development: "https://test-repo-lf3m.onrender.com",
 
-    // 🌍 PRODUCTION: Replace with your actual backend URL after deployment
-    // Example: "https://api.mgdeepclean.com"
-    production: "https://vercel.com/mgdeepcleans-projects/mg-deep-cleaning-backend/FNXicLjuN1jy3RwrPqApPXP1iy1K"
+    // 🌍 PRODUCTION: Your actual Render backend URL
+    production: "https://test-repo-lf3m.onrender.com"
 };
 
 // Auto-detect environment based on the current website URL

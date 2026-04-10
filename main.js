@@ -1,3 +1,17 @@
+// ===== PAGE LOADER LOGIC =====
+window.addEventListener('load', () => {
+    const loader = document.getElementById('preloader');
+    if (loader) {
+        setTimeout(() => {
+            loader.classList.add('fade-out');
+            // Remove from DOM after fade animation to free up resources
+            setTimeout(() => {
+                loader.remove();
+            }, 800);
+        }, 1500); // 1.5 second splash time as requested
+    }
+});
+
 // ===== CUSTOM NOTIFICATION SYSTEM (TOAST) =====
 function injectToastContainer() {
     if (document.getElementById('toast-container')) return;
