@@ -5,10 +5,10 @@
 
 const CONFIG = {
     // 🛠️ DEVELOPMENT: Using Render API for local testing
-    development: "https://test-repo-lf3m.onrender.com",
+    development: "https://mgdeepcleaning-backend.onrender.com",
 
     // 🌍 PRODUCTION: Your actual Render backend URL
-    production: "https://test-repo-lf3m.onrender.com"
+    production: "https://mgdeepcleaning-backend.onrender.com"
 };
 
 // Auto-detect environment based on the current website URL

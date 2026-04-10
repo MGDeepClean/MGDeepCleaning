@@ -445,8 +445,7 @@ async function handleFormSubmit(e) {
     const btn = e.target.querySelector('.form-submit');
     if (!btn) return;
 
-    const original = btn.innerHTML;
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+    btn.classList.add('loading');
     btn.disabled = true;
 
     const data = {
@@ -479,10 +478,10 @@ async function handleFormSubmit(e) {
     }
 
     setTimeout(() => { 
-        btn.innerHTML = original; 
+        btn.classList.remove('loading');
         btn.style.background = '';
         btn.disabled = false;
-    }, 4000);
+    }, 2000);
 }
 const quoteForm = document.getElementById('quote-form');
 if (quoteForm) quoteForm.addEventListener('submit', handleFormSubmit);
@@ -623,8 +622,7 @@ async function submitCustomerReview(e) {
         return;
     }
     const btn = e.target.querySelector('button[type="submit"]');
-    const originalText = btn.innerHTML;
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+    btn.classList.add('loading');
     btn.disabled = true;
 
     try {
@@ -641,7 +639,8 @@ async function submitCustomerReview(e) {
     } catch (error) {
         showToast("Error submitting review. Please try again.", "error");
     } finally {
-        btn.innerHTML = originalText; btn.disabled = false;
+        btn.classList.remove('loading');
+        btn.disabled = false;
     }
 }
 

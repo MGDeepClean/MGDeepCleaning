@@ -241,16 +241,7 @@ function handleFileSelect(input) {
 
 async function handleUpload(e) {
     e.preventDefault();
-    const btn = e.target.querySelector('button[type="submit"]');
-    const originalText = btn.innerHTML;
-    
-    const customerName = document.getElementById('customerName').value;
-    const category = document.getElementById('category').value;
-    const reviewText = document.getElementById('reviewText').value;
-
-    if (!customerName) return showToast("Customer name is required", "error");
-
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading...';
+    btn.classList.add('loading');
     btn.disabled = true;
 
     const formData = new FormData();
@@ -263,7 +254,7 @@ async function handleUpload(e) {
     if (selectedMediaType === 'image') {
         const file = document.getElementById('imageFile').files[0];
         if (!file) {
-            btn.innerHTML = originalText;
+            btn.classList.remove('loading');
             btn.disabled = false;
             return showToast("Please select an image", "error");
         }
@@ -292,9 +283,9 @@ async function handleUpload(e) {
             showToast(err.error || "Upload failed", "error");
         }
     } catch (err) {
-        showToast("Server error during upload", "error");
+        showToast("Upload failed", "error");
     } finally {
-        btn.innerHTML = originalText;
+        btn.classList.remove('loading');
         btn.disabled = false;
     }
 }

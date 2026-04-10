@@ -2883,6 +2883,30 @@ body.light-mode .youtube-wrapper {
     border-color: var(--orange);
 }
 
+/* ===== BUTTON LOADING STATES ===== */
+.btn-primary.loading, .btn-secondary.loading {
+    position: relative;
+    color: transparent !important;
+    pointer-events: none;
+}
+
+.btn-primary.loading::after, .btn-secondary.loading::after {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: calc(50% - 10px);
+    left: calc(50% - 10px);
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: btnSpinner 0.8s linear infinite;
+}
+
+@keyframes btnSpinner {
+    to { transform: rotate(360deg); }
+}
+
 
 .pagination-btn:disabled {
     opacity: 0.4;
