@@ -19,22 +19,22 @@ function showToast(message, type = 'success') {
     const container = document.getElementById('toast-container');
     const toast = document.createElement('div');
     toast.className = `toast ${type}`;
-    
+
     const icon = type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle';
-    
+
     toast.innerHTML = `
         <div class="toast-icon"><i class="fas ${icon}"></i></div>
         <div class="toast-content">${message}</div>
         <button class="toast-close"><i class="fas fa-times"></i></button>
     `;
-    
+
     container.appendChild(toast);
-    
+
     toast.querySelector('.toast-close').addEventListener('click', () => {
         toast.classList.add('hiding');
         setTimeout(() => toast.remove(), 500);
     });
-    
+
     setTimeout(() => {
         if (toast.parentNode) {
             toast.classList.add('hiding');
@@ -61,10 +61,10 @@ async function showConfirm(message = "Are you sure?") {
         }
 
         // Logic-based dynamic theming
-        const isDanger = message.toLowerCase().includes('delete') || 
-                         message.toLowerCase().includes('logout') || 
-                         message.toLowerCase().includes('permanently') ||
-                         message.toLowerCase().includes('remove');
+        const isDanger = message.toLowerCase().includes('delete') ||
+            message.toLowerCase().includes('logout') ||
+            message.toLowerCase().includes('permanently') ||
+            message.toLowerCase().includes('remove');
 
         if (isDanger) {
             // RED THEME
@@ -89,7 +89,7 @@ async function showConfirm(message = "Are you sure?") {
 
         const onYes = () => { overlay.classList.remove('show'); resolve(true); cleanup(); };
         const onNo = () => { overlay.classList.remove('show'); resolve(false); cleanup(); };
-        
+
         const cleanup = () => {
             yesBtn.removeEventListener('click', onYes);
             noBtn.removeEventListener('click', onNo);
@@ -129,11 +129,11 @@ function initTheme() {
 function switchSection(sectionId) {
     // Hide all sections
     document.querySelectorAll('.section-content').forEach(s => s.classList.add('hidden'));
-    
+
     // Show target section
     const target = document.getElementById(sectionId + '-section');
     if (target) target.classList.remove('hidden');
-    
+
     // Update active nav highlight
     document.querySelectorAll('.admin-nav-item').forEach(nav => {
         nav.classList.remove('active');
@@ -164,13 +164,16 @@ function toggleSidebar() {
 async function loadDashboard() {
     try {
         const token = localStorage.getItem('admin_token');
-        const res = await fetch(`${API_BASE}/reviews/stats`, { 
+        const res = await fetch(`${API_BASE}/reviews/stats`, {
             headers: { 'Authorization': `Bearer ${token}` },
-            credentials: 'include' 
+            credentials: 'include'
         });
         const stats = await res.json();
-        
-        if (res.status === 401) return window.location.href = 'login.html';
+
+        if (res.status === 401) {
+            console.error("🛡️ MG Admin: API returned 401 (Unauthorized). Redirecting to login...");
+            return window.location.href = '../login/';
+        }
 
         document.getElementById('stat-total-reviews').innerText = stats.totalReviews || 0;
         document.getElementById('stat-total-quotes').innerText = stats.totalQuotes || 0;
@@ -187,7 +190,7 @@ let selectedRating = 5;
 
 function setMediaType(type) {
     selectedMediaType = type;
-    
+
     // Update UI buttons
     document.querySelectorAll('.type-option').forEach(opt => {
         opt.classList.remove('active');
@@ -204,11 +207,11 @@ function setMediaType(type) {
     // Reset visibility
     imgField.classList.remove('active');
     ytField.classList.remove('active');
-    
+
     // Logic for showing fields
     if (type === 'image') imgField.classList.add('active');
     if (type === 'youtube') ytField.classList.add('active');
-    
+
     // Text field is always shown as optional content, but we could customize its label
     const textLabel = textField.querySelector('label');
     if (type === 'text') {
@@ -294,19 +297,22 @@ async function handleUpload(e) {
 async function loadQuotes() {
     const tableBody = document.getElementById('quotes-table-body');
     if (!tableBody) return;
-    
+
     tableBody.innerHTML = '<tr><td colspan="6" class="p-8 text-center text-gray-500"><i class="fas fa-spinner animate-spin mr-2"></i> Loading quotes...</td></tr>';
-    
+
     try {
         const token = localStorage.getItem('admin_token');
-        const res = await fetch(`${API_BASE}/quote`, { 
+        const res = await fetch(`${API_BASE}/quote`, {
             headers: { 'Authorization': `Bearer ${token}` },
-            credentials: 'include' 
+            credentials: 'include'
         });
         const quotes = await res.json();
-        
-        if (res.status === 401) return window.location.href = 'login.html';
-        
+
+        if (res.status === 401) {
+            console.error("🛡️ MG Admin: API returned 401 (Unauthorized). Redirecting to login...");
+            return window.location.href = '../login/';
+        }
+
         if (quotes.length === 0) {
             tableBody.innerHTML = '<tr><td colspan="6" class="p-8 text-center text-gray-500">No quote requests found.</td></tr>';
             return;
@@ -338,7 +344,7 @@ async function deleteQuote(id) {
     if (await showConfirm("Delete this quote request permanently?")) {
         try {
             const token = localStorage.getItem('admin_token');
-            const res = await fetch(`${API_BASE}/quote/${id}`, { 
+            const res = await fetch(`${API_BASE}/quote/${id}`, {
                 method: 'DELETE',
                 headers: { 'Authorization': `Bearer ${token}` },
                 credentials: 'include'
@@ -348,7 +354,7 @@ async function deleteQuote(id) {
                 loadQuotes();
                 loadDashboard();
             } else if (res.status === 401) {
-                window.location.href = 'login.html';
+                window.location.href = '../login/';
             }
         } catch (err) { showToast("Failed to delete", "error"); }
     }
@@ -361,17 +367,20 @@ async function loadLibrary() {
 
     const filter = document.getElementById('library-filter')?.value || 'all';
     grid.innerHTML = '<div class="col-span-full p-20 text-center"><i class="fas fa-spinner animate-spin text-4xl text-orange"></i></div>';
-    
+
     try {
         const token = localStorage.getItem('admin_token');
-        const res = await fetch(`${API_BASE}/reviews`, { 
+        const res = await fetch(`${API_BASE}/reviews`, {
             headers: { 'Authorization': `Bearer ${token}` },
-            credentials: 'include' 
+            credentials: 'include'
         });
         let reviews = await res.json();
-        
-        if (res.status === 401) return window.location.href = 'login.html';
-        
+
+        if (res.status === 401) {
+            console.error("🛡️ MG Admin: API returned 401 (Unauthorized). Redirecting to login...");
+            return window.location.href = '../login/';
+        }
+
         if (filter !== 'all') {
             reviews = reviews.filter(r => r.type === filter);
         }
@@ -384,16 +393,16 @@ async function loadLibrary() {
         grid.innerHTML = reviews.map(r => `
             <div class="admin-card p-0 flex flex-col h-full group relative overflow-hidden transition-all duration-300 hover:border-orange/30 hover:shadow-2xl hover:shadow-orange/5 bg-charcoal-light/30">
                 <div class="h-40 sm:h-48 bg-black/40 relative overflow-hidden">
-                    ${r.type === 'image' ? `<img src="${r.url}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">` : 
-                      r.type === 'youtube' ? `<div class="w-full h-full flex flex-col items-center justify-center bg-red-900/10 text-red-500 gap-2">
+                    ${r.type === 'image' ? `<img src="${r.url}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">` :
+                r.type === 'youtube' ? `<div class="w-full h-full flex flex-col items-center justify-center bg-red-900/10 text-red-500 gap-2">
                           <i class="fab fa-youtube text-4xl"></i>
                           <span class="text-[9px] font-bold uppercase tracking-widest opacity-60">Video Feed</span>
                       </div>` :
-                      `<div class="w-full h-full flex flex-col items-center justify-center bg-blue-900/5 text-orange/30 gap-2">
+                    `<div class="w-full h-full flex flex-col items-center justify-center bg-blue-900/5 text-orange/30 gap-2">
                           <i class="fas fa-quote-left text-3xl"></i>
                           <span class="text-[9px] font-bold uppercase tracking-widest opacity-60">Testimonial</span>
                       </div>`
-                    }
+            }
                     
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity flex items-end p-2 sm:p-4">
                         <div class="flex gap-1.5 sm:gap-2 w-full">
@@ -437,7 +446,7 @@ async function handleDeleteReview(id) {
     if (await showConfirm("Permanently delete this review from the website?")) {
         try {
             const token = localStorage.getItem('admin_token');
-            const res = await fetch(`${API_BASE}/reviews/${id}`, { 
+            const res = await fetch(`${API_BASE}/reviews/${id}`, {
                 method: 'DELETE',
                 headers: { 'Authorization': `Bearer ${token}` },
                 credentials: 'include'
@@ -447,7 +456,7 @@ async function handleDeleteReview(id) {
                 loadLibrary();
                 loadDashboard();
             } else if (res.status === 401) {
-                window.location.href = 'login.html';
+                window.location.href = '../login/';
             }
         } catch (err) { showToast("Failed to delete", "error"); }
     }
@@ -460,21 +469,21 @@ let currentEditRating = 5;
 async function openEditModal(id) {
     try {
         const token = localStorage.getItem('admin_token');
-        const res = await fetch(`${API_BASE}/reviews`, { 
+        const res = await fetch(`${API_BASE}/reviews`, {
             headers: { 'Authorization': `Bearer ${token}` },
-            credentials: 'include' 
-        }); 
+            credentials: 'include'
+        });
         const all = await res.json();
         const r = all.find(item => item._id === id);
-        
+
         if (!r) return;
         currentEditId = id;
-        
+
         document.getElementById('edit-review-id').value = id;
         document.getElementById('edit-customer-name').value = r.customerName;
         document.getElementById('edit-category').value = r.category;
         document.getElementById('edit-text').value = r.text || "";
-        
+
         renderEditStars(r.rating);
         document.getElementById('edit-review-modal').classList.add('show');
     } catch (err) { showToast("Error loading review", "error"); }
@@ -484,7 +493,7 @@ function renderEditStars(rating) {
     currentEditRating = rating;
     const container = document.getElementById('edit-star-input');
     if (!container) return;
-    container.innerHTML = [1,2,3,4,5].map(s => `
+    container.innerHTML = [1, 2, 3, 4, 5].map(s => `
         <i class="fas fa-star cursor-pointer ${s <= rating ? 'text-orange' : 'text-gray-600'}" onclick="renderEditStars(${s})"></i>
     `).join('');
 }
@@ -501,14 +510,17 @@ async function fetchPendingReviews() {
 
     try {
         const token = localStorage.getItem('admin_token');
-        const response = await fetch(`${API_BASE}/reviews/pending`, { 
+        const response = await fetch(`${API_BASE}/reviews/pending`, {
             headers: { 'Authorization': `Bearer ${token}` },
-            credentials: 'include' 
+            credentials: 'include'
         });
         const pending = await response.json();
-        
-        if (response.status === 401) return window.location.href = 'login.html';
-        
+
+        if (response.status === 401) {
+            console.error("🛡️ MG Admin: API returned 401 (Unauthorized) while fetching pending reviews. Redirecting to login...");
+            return window.location.href = '../login/';
+        }
+
         if (pending.length === 0) {
             grid.innerHTML = '<div class="col-span-full p-20 text-center text-gray-500">Inbox is empty! No pending reviews to approve.</div>';
             return;
@@ -542,7 +554,7 @@ async function handleApprove(id) {
     if (await showConfirm("Approve this review for the live site?")) {
         try {
             const token = localStorage.getItem('admin_token');
-            const response = await fetch(`${API_BASE}/reviews/${id}/approve`, { 
+            const response = await fetch(`${API_BASE}/reviews/${id}/approve`, {
                 method: 'PUT',
                 headers: { 'Authorization': `Bearer ${token}` },
                 credentials: 'include'
@@ -552,7 +564,8 @@ async function handleApprove(id) {
                 fetchPendingReviews();
                 loadDashboard();
             } else if (response.status === 401) {
-                window.location.href = 'login.html';
+                console.error("🛡️ MG Admin: API returned 401 (Unauthorized) during approval. Redirecting to login...");
+                window.location.href = '../login/';
             }
         } catch (error) { showToast("Failed to approve", "error"); }
     }
@@ -562,7 +575,7 @@ async function handleApprove(id) {
 document.addEventListener('DOMContentLoaded', () => {
     initTheme();
     loadDashboard();
-    
+
     // Form listeners
     const mainUploadForm = document.getElementById('upload-review-form');
     if (mainUploadForm) {
@@ -584,14 +597,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 const token = localStorage.getItem('admin_token');
                 const res = await fetch(`${API_BASE}/reviews/${currentEditId}`, {
                     method: 'PUT',
-                    headers: { 
+                    headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${token}`
                     },
                     body: JSON.stringify(data),
                     credentials: 'include'
                 });
-                
+
                 if (res.ok) {
                     showToast("Review updated successfully!");
                     closeEditModal();
@@ -613,16 +626,18 @@ async function handleLogout() {
     if (await showConfirm("Are you sure you want to log out?")) {
         try {
             const token = localStorage.getItem('admin_token');
-            await fetch(`${API_BASE}/auth/logout`, { 
-                method: 'POST', 
+            await fetch(`${API_BASE}/auth/logout`, {
+                method: 'POST',
                 headers: { 'Authorization': `Bearer ${token}` },
-                credentials: 'include' 
+                credentials: 'include'
             });
             localStorage.removeItem('admin_token'); // Clear token
-            window.location.href = 'login.html';
+            console.log("🛡️ MG Admin: Logged out. Redirecting to login...");
+            window.location.href = '../login/';
         } catch (err) {
             localStorage.removeItem('admin_token');
-            window.location.href = 'login.html';
+            console.warn("🛡️ MG Admin: Logout error, but clearing cache and redirecting anyway.");
+            window.location.href = '../login/';
         }
     }
 }

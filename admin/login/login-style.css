@@ -1,0 +1,97 @@
+/* MG DEEP CLEAN - ADMIN LOGIN STYLES */
+
+.glass-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 32px;
+    padding: 48px;
+    width: 100%;
+    max-width: 440px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.btn-primary {
+    background: var(--orange);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    color: white;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    border-radius: 12px;
+    width: 100%;
+    padding: 16px;
+}
+
+.btn-primary:hover {
+    background: #ff9231;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px -5px rgba(240, 124, 26, 0.4);
+}
+
+.btn-primary:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.input-field {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s;
+    width: 100%;
+    border-radius: 12px;
+    padding: 16px 20px;
+    color: white;
+}
+
+.input-field:focus {
+    border-color: var(--orange);
+    background: rgba(0, 0, 0, 0.3);
+    outline: none;
+}
+
+.otp-input-group {
+    display: none;
+}
+
+.hidden { display: none !important; }
+
+/* Spinner */
+.spinner {
+    display: none;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255,255,255,0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+#toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: #222;
+    padding: 12px 24px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    opacity: 0;
+    z-index: 9999;
+}
+#toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+.glass-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: radial-gradient(circle at top left, #242424, #1A1A1A);
+}

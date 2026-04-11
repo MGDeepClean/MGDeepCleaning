@@ -2,7 +2,7 @@
   "name": "MG Deep Clean",
   "short_name": "MG Clean",
   "description": "Premium Deep Cleaning Services in Tirupati",
-  "start_url": "/index.html",
+  "start_url": "/home/index.html",
   "display": "standalone",
   "background_color": "#121212",
   "theme_color": "#F07C1A",
