@@ -1,7 +1,7 @@
 const CACHE_NAME = 'mg-clean-v1';
 const ASSETS_TO_CACHE = [
   '/',
-  '/home/index.html',
+  '/home/',
   '/mg-style.css',
   '/main.js',
   '/config.js',
